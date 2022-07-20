@@ -1,15 +1,17 @@
 <html>
     <head>
+        <script src="https://cdn.tailwindcss.com"></script>
     </head>
-    <body>
-        <h1>HELLO! FILE LISTING: .</h1>
-        <p>TESTING</p>
-        <ul>
-<li class="item"><a href="./test/index.html">/test</a></li>
-<li class="item"><a href="./test.html">test.html</a></li>
-<li class="item"><a href="./test.js">test.js</a></li>
-<li class="item"><a href="./test.png">test.png</a></li>
-        </ul>
-        <footer>Stuff in here.</footer>
+    <body class="p-10">
+        <div class="container max-w-3xl mx-auto flex flex-col text-3.5 rounded-md bg-white border border-slate-200 overflow-hidden">
+            <h1 class="p-5 bg-slate-100 rounded-t-md"><span class="font-semibold">File Listing</span> .</h1>
+            <ul>
+<li class="item border-t border-slate-200 p-2"><a href="./test/index.html">/test</a></li>
+<li class="item border-t border-slate-200 p-2"><a href="./test.html">test.html</a></li>
+<li class="item border-t border-slate-200 p-2"><a href="./test.jpg">test.jpg</a></li>
+<li class="item border-t border-slate-200 p-2"><a href="./test.js">test.js</a></li>
+<li class="item border-t border-slate-200 p-2"><a href="./test.png">test.png</a></li>
+            </ul>
+        </div>
     </body>
 </html>
