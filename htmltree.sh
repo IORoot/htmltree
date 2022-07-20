@@ -42,8 +42,14 @@ while [[ $# -gt 0 ]]; do
             shift # past value
             ;;
 
-        -L|--li)
-            HTML_LI="$2"
+        -LF|--li-file)
+            HTML_LI_FILE="$2"
+            shift # past argument
+            shift # past value
+            ;;
+
+        -LD|--li-directory)
+            HTML_LI_DIRECTORY="$2"
             shift # past argument
             shift # past value
             ;;
@@ -112,22 +118,41 @@ EOF" 2> /dev/null)
 }
 
 
-html_li()
+html_li_directory()
 {
     DEFAULT_HTML_LI="<li class=\"item\"><a href=\"${file_path}\">${file_name}</a></li>\n"
 
     # If HTML_LI (-L) flag is set 
-    if [ -z ${HTML_LI+x} ]; then 
+    if [ -z ${HTML_LI_DIRECTORY+x} ]; then 
         printf "${DEFAULT_HTML_LI}" >> index.html
     else 
         CONTENTS=$(eval "cat <<EOF
-$(<${CURRENT_PATH}/${HTML_LI})
+$(<${CURRENT_PATH}/${HTML_LI_DIRECTORY})
 EOF" 2> /dev/null)
 
         printf "${CONTENTS}\n" >> index.html
     fi
 
 }
+
+
+html_li_file()
+{
+    DEFAULT_HTML_LI="<li class=\"item\"><a href=\"${file_path}\">${file_name}</a></li>\n"
+
+    # If HTML_LI (-L) flag is set 
+    if [ -z ${HTML_LI_FILE+x} ]; then 
+        printf "${DEFAULT_HTML_LI}" >> index.html
+    else 
+        CONTENTS=$(eval "cat <<EOF
+$(<${CURRENT_PATH}/${HTML_LI_FILE})
+EOF" 2> /dev/null)
+
+        printf "${CONTENTS}\n" >> index.html
+    fi
+
+}
+
 
 
 html_foot()
@@ -244,15 +269,19 @@ list_files()
         fi
 
         if [[ "${GIT_IGNORE}" == "yes" ]]; then
-
             IGNORE="$(gitignore)"
             if  [[ "${IGNORE}" == "yes" ]]; then
                 continue
             fi
         fi
 
+        if [[ "$file_type" == "directory" ]]; then
+            html_li_directory
+            continue
+        fi
+
         # Output the <LI>
-        html_li
+        html_li_file
     done
 
     unset FILES
