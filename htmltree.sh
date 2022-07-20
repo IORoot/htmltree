@@ -188,6 +188,7 @@ regex_fileline()
         file_time="${BASH_REMATCH[8]}"
         file_name="${BASH_REMATCH[9]}"
         file_path="./${BASH_REMATCH[9]}"
+        file_type="file"
 
         # Skip the . and .. folders.
         if [[ "$file_name" == "." ]] || [[ "$file_name" == ".." ]] ; then
@@ -196,6 +197,7 @@ regex_fileline()
 
         # If the file is a directory, but not [.|..] output index.html on end.
         if [[ $file_permissions == d* ]]; then
+            file_type="directory"
             file_path="${file_path}/index.html"
             file_name="/${file_name}"
         fi

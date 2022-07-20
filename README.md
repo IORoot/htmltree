@@ -97,6 +97,7 @@ Only available for the `<li>` template:
 - ${file_time}              # Time the file was last updated.
 - ${file_name}              # Name of the file.
 - ${file_path}              # Path of the file. Prefixed with './'
+- ${file_type}              # Either 'file' or 'folder'
 ```
 
 You can place these variables within your templates like so:
