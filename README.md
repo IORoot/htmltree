@@ -252,7 +252,7 @@ Usage:
 
 ###  6.2. <a name='githubtemplate'></a>github template
 
-This template is stylised like the github repository file-browser. Contains custom images, dynamic SVGs, File and folder icons as well as more file details.
+This template is stylised with TailwindCSS and is crafted to look like the github repository file-browser. Contains custom images, dynamic SVGs, File and folder icons as well as more file details.
 
 Usage:
 ```bash
