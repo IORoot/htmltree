@@ -66,38 +66,39 @@ Below are some examples of the HTML templates you can use to customise your outp
 Within the template files theere are a number of variables available for the listings. Bleow is a list of all those variables:
 
 ```bash
-- ${POSITIONAL_ARGS}    # All arguments on the cammand line.
-- ${HTML_HEAD}          # Name of the Header Template File
-- ${HTML_FOOT}          # Name of the Footer Template File
-- ${HTML_LI}            # Name of the <li> Template File
-- ${GIT_IGNORE}         # "yes" if --git-ignore flag is set.
-- ${HIDE_INDEX}         # "yes" if --hide-index flag is set.
-- ${TARGET_PATH}        # PATH given as an argument
-- ${ABSOLUTE_PATH}      # PATH given as an argument converted to an absolute path.
-- ${CURRENT_PATH}       # PATH of where command was run
-- ${DEFAULT_HTML_HEAD}  # Default HTML header
-- ${DEFAULT_HTML_FOOT}  # Default HTML footer
-- ${DEFAULT_HTML_LI}    # Default HTML <li>
-- ${FOLDERS}            # List of all folders found
-- ${FOLDER}             # Current folder of file.
+- {{POSITIONAL_ARGS}}    # All arguments on the cammand line.
+- {{HTML_HEAD}}          # Name of the Header Template File
+- {{HTML_FOOT}}          # Name of the Footer Template File
+- {{HTML_LI}}            # Name of the <li> Template File
+- {{GIT_IGNORE}}         # "yes" if --git-ignore flag is set.
+- {{HIDE_INDEX}}         # "yes" if --hide-index flag is set.
+- {{TARGET_PATH}}        # PATH given as an argument
+- {{ABSOLUTE_PATH}}      # PATH given as an argument converted to an absolute path.
+- {{CURRENT_PATH}}       # PATH of where command was run
+- {{DEFAULT_HTML_HEAD}}  # Default HTML header
+- {{DEFAULT_HTML_FOOT}}  # Default HTML footer
+- {{DEFAULT_HTML_LI}}    # Default HTML <li>
+- {{FOLDERS}}            # List of all folders found
+- {{FOLDER}}             # Current folder of file.
 ```
 
 Only available for the `<li>` template:
 
 ```bash
-- ${FILES}                  # Complete list of all files in folder.
-- ${FILELINE}               # Output of the file listing with all parameters.
-- ${file_permissions}       # permissions of the file. e.g. `drwxrw.rw.`
-- ${file_subdirectories}    # number of subdirectories in the file. 0 if a normal file. more if a folder.
-- ${file_owner}             # name of the owner of the file.
-- ${file_group}             # name of the group of the file.
-- ${file_size}              # size of the file in human-readable format.
-- ${file_day}               # Numeric day the file was last updated.
-- ${file_month}             # Numeric month the file was last updated.
-- ${file_time}              # Time the file was last updated.
-- ${file_name}              # Name of the file.
-- ${file_path}              # Path of the file. Prefixed with './'
-- ${file_type}              # Either 'file' or 'folder'
+- {{FILES}}                  # Complete list of all files in folder.
+- {{FILELINE}}               # Output of the file listing with all parameters.
+- {{file_permissions}}       # permissions of the file. e.g. `drwxrw.rw.`
+- {{file_subdirectories}}    # number of subdirectories in the file. 0 if a normal file. more if a folder.
+- {{file_owner}}             # name of the owner of the file.
+- {{file_group}}             # name of the group of the file.
+- {{file_size}}              # size of the file in human-readable format.
+- {{file_day}}               # Numeric day the file was last updated.
+- {{file_month}}             # Numeric month the file was last updated.
+- {{file_time}}              # Time the file was last updated.
+- {{file_name}}              # Name of the file.
+- {{file_path}}              # Path of the file. Prefixed with './'
+- {{file_type}}              # Either 'file' or 'folder'
+- {{file_extension}}         # The extension of the filename.
 ```
 
 You can place these variables within your templates like so:
@@ -111,7 +112,7 @@ Example `template_head.html`
     <head>
     </head>
     <body>
-        <h1>FILE LISTING: ${FOLDER}</h1>
+        <h1>FILE LISTING: {{FOLDER}}</h1>
         <ul>
 ```
 
@@ -128,7 +129,7 @@ Example `template_foot.html`
 Example `template_li.html`
 
 ```html
-<li class=\"item\"><a href=\"${file_path}\">${file_name}</a></li>
+<li class="item"><a href="{{file_path}}">{{file_name}}</a></li>
 ```
 
 Note that quotes need to be escaped to work.
