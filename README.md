@@ -269,7 +269,9 @@ Screenshot:
 
 ##  7. <a name='AdvancedCIusage.'></a>Advanced CI usage.
 
-Remember, If you are using this project within a CI pipeline, you could generate the template files to contain results of tests, etc... Those templates are then used to generate the HTML index files.
+1. Remember, If you are using this project within a CI pipeline, you could generate the template files to contain results of tests, etc... Those templates are then used to generate the HTML index files.
+
+2. Also, Javasript can be used too.
 
 
 <p align="right">(<a href="#top">back to top</a>)</p>
