@@ -1,11 +1,57 @@
-# HTML Tree
 
-The purpose of this is to create an HTML rendering of a file structure. 
-The key is to be able to use a template for the HTML and therefore render the output however you like.
+<div id="top"></div>
 
-This was created to help render a simple file-browser with no dependencies so it could be used on a GitLab CI Pipeline. This will take a `./results` folder and build `index.html` files in each directory that allow for some simple navigation.
+<div align="center">
 
-# Usage
+<img src="https://svg-rewriter.sachinraja.workers.dev/?url=https%3A%2F%2Fcdn.jsdelivr.net%2Fnpm%2F%40mdi%2Fsvg%406.7.96%2Fsvg%2Fleaf.svg&fill=%2384CC16&width=200px&height=200px" style="width:200px;"/>
+
+<h3 align="center">HTMLTree</h3>
+
+<p align="center">
+Create a static HTML rendering of a file structure. 
+</p>    
+</div>
+
+##  2. <a name='AboutTheProject'></a>About The Project
+
+If you run CI pipelines, sometimes you have result files you wish to see. 
+You could just download the artifacts and open it up locally, but there's also the functionality to push the results to the 'pages' facility within GitHub and GitLab. 
+This renders any static HTML files you have and essentailly makes a website for you.
+
+Therefore, if you had a static index.html file that listed all of your files, you'd have a rudimentary file-browser. 
+
+This is where `htmltree` comes in. You run it against a folder (usually you CI `./results` directory) and it will create `index.html` files in each directory and sub-directory that all link together. 
+Giving you the ability to navigate and browse the results.
+
+The *Really* great part is that you use template files to change how those index files look. So you can theme the results however you like.
+
+<p align="right">(<a href="#top">back to top</a>)</p>
+
+
+###  2.1. <a name='BuiltWith'></a>Built With
+
+This project was built with the following frameworks, technologies and software.
+
+- [BASH](https://www.gnu.org/software/bash/)
+
+<p align="right">(<a href="#top">back to top</a>)</p>
+
+
+###  2.2. <a name='Installation'></a>Installation
+
+These are the steps to get up and running.
+
+1. Clone the repo in home directory.
+    ```sh
+    git clone https://github.com/IORoot/htmltree ~
+    ```
+
+<p align="right">(<a href="#top">back to top</a>)</p>
+
+
+##  3. <a name='Usage'></a>Usage
+
+
 
 ## Flag `-H or --head`
 
@@ -140,6 +186,63 @@ You could then use all of these templates like so:
 ./htmltree.sh -F template_foot.html -H template_head.html -L template_li.html -I -G ./example
 ```
 
-# Changelog
 
-v1.0.0 - Initial Creation.
+<p align="right">(<a href="#top">back to top</a>)</p>
+
+
+##  6. <a name='Contributing'></a>Contributing
+
+Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
+
+If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue.
+Don't forget to give the project a star! Thanks again!
+
+1. Fork the Project
+2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the Branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+<p align="right">(<a href="#top">back to top</a>)</p>
+
+
+
+##  7. <a name='License'></a>License
+
+Distributed under the MIT License.
+
+MIT License
+
+Copyright (c) 2022 Andy Pearson
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+<p align="right">(<a href="#top">back to top</a>)</p>
+
+
+
+##  8. <a name='Contact'></a>Contact
+
+Author Link: [https://github.com/IORoot](https://github.com/IORoot)
+
+<p align="right">(<a href="#top">back to top</a>)</p>
+
+##  9. <a name='Changelog'></a>Changelog
+
+v1.0.0 - First version.
