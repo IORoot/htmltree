@@ -274,7 +274,7 @@ Remember, If you are using this project within a CI pipeline, you could generate
 
 ##  8. <a name='Problemstofix'></a>Problems to fix
 
-- The .gitignore doesn't work with folders. The patterning only works with files.
+none.
 
 ##  9. <a name='Contributing'></a>Contributing
 
