@@ -108,68 +108,83 @@ IGNORE=''
 # └────────────────────────────────────┘
 substitute_variables()
 {
-    CONTENTS=$(perl -pe 's,\{\{(.*)\}\},$ENV{$1},' <<< $CONTENTS)
+    CONTENTS=$(perl -pe 's,{{(.*?)}},$ENV{$1},g' <<< $CONTENTS)
+    
 }
-
-
 
 # ┌─────────────────────────────────────┐
 # │           HTML TEMPLATES            │
 # └─────────────────────────────────────┘
 html_head()
 {
+    DEFAULT_HTML_HEAD="
+<html>
+    <head>
+    </head>
+    <body>
+        <h1>FILE LISTING: {{FOLDER}}</h1>
+        <ul>
+"
 
     # If HTML_HEAD (-H) flag is set 
     if [ -z ${HTML_HEAD+x} ]; then 
-        printf "${DEFAULT_HTML_HEAD}" > index.html
+        CONTENTS="${DEFAULT_HTML_HEAD}"
     else 
-
         CONTENTS=$(cat ${CURRENT_PATH}/${HTML_HEAD})
 
         # Replace % with %% so that printf will work.
         CONTENTS=$(echo "${CONTENTS}" | sed "s#%#%%#g")
-
-        # Substitute any {{moustaches}}
-        substitute_variables
-
-        printf "${CONTENTS}\n" > index.html
     fi
+
+    # Substitute any {{moustaches}}
+    substitute_variables
+
+    printf "${CONTENTS}\n" > index.html
     
 }
 
 
 html_li_directory()
 {
-    DEFAULT_HTML_LI_DIRECTORY="<li class=\"item\"><a href=\"${file_path}\">${file_name}</a></li>\n"
+    DEFAULT_HTML_LI_DIRECTORY="<li class=\"item\"><a href=\"{{file_path}}\">{{file_name}}</a></li>\n"
 
-    # If HTML_LI (-L) flag is set 
     if [ -z ${HTML_LI_DIRECTORY+x} ]; then 
-        printf "${DEFAULT_HTML_LI_DIRECTORY}" >> index.html
+        CONTENTS="${DEFAULT_HTML_LI_DIRECTORY}"
     else 
-        CONTENTS=$(eval "cat <<EOF
-$(<${CURRENT_PATH}/${HTML_LI_DIRECTORY})
-EOF" 2> /dev/null)
+        CONTENTS=$(cat ${CURRENT_PATH}/${HTML_LI_DIRECTORY})
 
-        printf "${CONTENTS}\n" >> index.html
+        # Replace % with %% so that printf will work.
+        CONTENTS=$(echo "${CONTENTS}" | sed "s#%#%%#g")
     fi
+
+    # Substitute any {{moustaches}}
+    substitute_variables
+
+    printf "${CONTENTS}\n" >> index.html
 
 }
 
 
 html_li_file()
 {
-    DEFAULT_HTML_LI_FILE="<li class=\"item\"><a href=\"${file_path}\">${file_name}</a></li>\n"
+    DEFAULT_HTML_LI_FILE="<li class=\"item\"><a href=\"{{file_path}}\">{{file_name}}</a></li>\n"
 
-    # If HTML_LI (-L) flag is set 
     if [ -z ${HTML_LI_FILE+x} ]; then 
-        printf "${DEFAULT_HTML_LI_FILE}" >> index.html
+        CONTENTS="${DEFAULT_HTML_LI_FILE}"
     else 
-        CONTENTS=$(eval "cat <<EOF
-$(<${CURRENT_PATH}/${HTML_LI_FILE})
-EOF" 2> /dev/null)
+        CONTENTS=$(cat ${CURRENT_PATH}/${HTML_LI_FILE})
 
-        printf "${CONTENTS}\n" >> index.html
+        # printf "${CONTENTS}\n"
+
+        # Replace % with %% so that printf will work.
+        CONTENTS=$(echo "${CONTENTS}" | sed "s#%#%%#g")
     fi
+
+    # Substitute any {{moustaches}}
+    substitute_variables
+
+    
+    printf "${CONTENTS}\n" >> index.html
 
 }
 
@@ -182,15 +197,20 @@ html_foot()
     </body>
 </html>
 "
-    # If HTML_FOOT (-F) flag is set 
+
     if [ -z ${HTML_FOOT+x} ]; then 
-        printf "${DEFAULT_HTML_FOOT}" >> index.html
+        CONTENTS="${DEFAULT_HTML_FOOT}"
     else 
-        CONTENTS=$(eval "cat <<EOF
-$(<${CURRENT_PATH}/${HTML_FOOT})
-EOF" 2> /dev/null)
-        printf "${CONTENTS}" >> index.html
+        CONTENTS=$(cat ${CURRENT_PATH}/${HTML_FOOT})
+
+        # Replace % with %% so that printf will work.
+        CONTENTS=$(echo "${CONTENTS}" | sed "s#%#%%#g")
     fi
+
+    # Substitute any {{moustaches}}
+    substitute_variables
+
+    printf "${CONTENTS}\n" >> index.html
 
 }
 
@@ -237,6 +257,7 @@ regex_fileline()
 
         # Skip the . and .. folders.
         if [[ "$file_name" == "." ]] || [[ "$file_name" == ".." ]] ; then
+            file_type="directory"
             return
         fi
 
@@ -244,7 +265,6 @@ regex_fileline()
         if [[ $file_permissions == d* ]]; then
             file_type="directory"
             file_path="${file_path}/index.html"
-            file_name="/${file_name}"
         fi
         
 

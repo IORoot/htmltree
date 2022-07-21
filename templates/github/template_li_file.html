@@ -1,8 +1,8 @@
-<li class="item border-t border-slate-200 p-2 font-medium">
-    <a class="flex flex-row gap-4" href="${file_path}">
-        <img class="file mr-2 h-6" src="https://cdn.jsdelivr.net/npm/@mdi/svg@7.0.96/svg/file-outline.svg" />
-        <div class="w-1/6">${file_name}</div>
-        <div class="w-1/6 font-light">${file_permissions}</div>
-        <div class="w-1/6 font-light ml-auto">${file_day} ${file_month}. ${file_time}</div>
+<li class="item border-t border-slate-200 p-2 font-light text-sm">
+    <a class="flex flex-row gap-4" href="{{file_path}}" >
+        <img class="file h-5 w-5" src="https://svg-rewriter.sachinraja.workers.dev/?url=https%3A%2F%2Fcdn.jsdelivr.net%2Fnpm%2F%40mdi%2Fsvg%406.7.96%2Fsvg%2Ffile-outline.svg&fill=%2357606a&width=40px&height=40px"/>
+        <div class="w-1/6">{{file_name}}</div>
+        <div class="w-1/6">{{file_permissions}}</div>
+        <div class="w-1/6 ml-auto">{{file_day}} {{file_month}}. {{file_time}}</div>
     </a>
 </li>
