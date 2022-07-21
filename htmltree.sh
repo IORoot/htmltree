@@ -253,6 +253,7 @@ regex_fileline()
         file_time="${BASH_REMATCH[8]}"
         file_name="${BASH_REMATCH[9]}"
         file_path="./${BASH_REMATCH[9]}"
+        file_extension="${file_name##*.}"
         file_type="file"
 
         # Skip the . and .. folders.
@@ -273,6 +274,8 @@ regex_fileline()
     fi
 
 }
+
+
 
 # ┌─────────────────────────────────────┐
 # │        List Files in Folder         │
