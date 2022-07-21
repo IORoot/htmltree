@@ -1,0 +1,14 @@
+                </ul>
+            </div>
+        </div>
+        <script>
+            const tests = [];
+            const target = document.querySelector('.testlist');
+            tests.forEach( item => {
+                var newitem = document.createElement("div");
+                newitem.innerHTML = '<div class="w-full bg-white p-4 text-center rounded-md">'+item+'</div>';
+                target.appendChild(newitem);
+            });
+        </script>
+    </body>
+</html>
