@@ -12,6 +12,34 @@ Create a static HTML rendering of a file structure.
 </p>    
 </div>
 
+##  1. <a name='TableofContents'></a> Table of Contents
+
+
+* 1. [ Table of Contents](#TableofContents)
+* 2. [About The Project](#AboutTheProject)
+	* 2.1. [Built With](#BuiltWith)
+	* 2.2. [Installation](#Installation)
+* 3. [Usage](#Usage)
+	* 3.1. [Flag `-H or --head`](#Flag-Hor--head)
+	* 3.2. [Flag `-F or --foot`](#Flag-For--foot)
+	* 3.3. [Flag `-LF or --li-file`](#Flag-LFor--li-file)
+	* 3.4. [Flag `-LD or --li-directory`](#Flag-LDor--li-directory)
+	* 3.5. [`-G or --git-ignore`](#-Gor--git-ignore)
+	* 3.6. [`-I or --hide-index`](#-Ior--hide-index)
+	* 3.7. [`--help`](#--help)
+* 4. [Templating.](#Templating.)
+	* 4.1. [Variables](#Variables)
+* 5. [Examples](#Examples)
+* 6. [Example templates](#Exampletemplates)
+	* 6.1. [basic template](#basictemplate)
+	* 6.2. [github template](#githubtemplate)
+* 7. [Advanced CI usage.](#AdvancedCIusage.)
+* 8. [Contributing](#Contributing)
+* 9. [License](#License)
+* 10. [Contact](#Contact)
+* 11. [Changelog](#Changelog)
+
+
 ##  2. <a name='AboutTheProject'></a>About The Project
 
 If you run CI pipelines, sometimes you have result files you wish to see. 
@@ -52,8 +80,7 @@ These are the steps to get up and running.
 ##  3. <a name='Usage'></a>Usage
 
 
-
-## Flag `-H or --head`
+###  3.1. <a name='Flag-Hor--head'></a>Flag `-H or --head`
 
 A templating flag that allows you to define the header of the index.html files that are rendered out. Supply a file to insert before any of the listings. If this flag isn't supplied a default one will be used.
 
@@ -63,7 +90,8 @@ e.g.
 ./htmltree.sh -H header_template.html
 ```
 
-## Flag `-F or --foot`
+
+###  3.2. <a name='Flag-For--foot'></a>Flag `-F or --foot`
 
 A templating flag that allows you to define the footer of the index.html files that are rendered out. Supply a file to insert after any of the listings. If this flag isn't supplied a default one will be used.
 
@@ -73,18 +101,32 @@ e.g.
 ./htmltree.sh -F footer_template.html
 ```
 
-## Flag `-L or --li`
 
-A templating flag that allows you to define how each entry in the listing will be rendered. Supply a template file. If this flag isn't supplied a default one will be used.
+###  3.3. <a name='Flag-LFor--li-file'></a>Flag `-LF or --li-file`
+
+A templating flag that allows you to define how each file in the listing will be rendered. Supply a template file. If this flag isn't supplied a default one will be used.
 The html will create `<li>` lines in an unordered list by default.
 
 e.g.
 ```bash
-./htmltree.sh --li li_template.html
-./htmltree.sh -L li_template.html
+./htmltree.sh --li-file li_file_template.html
+./htmltree.sh -LF li_file_template.html
 ```
 
-## `-G or --git-ignore`
+
+###  3.4. <a name='Flag-LDor--li-directory'></a>Flag `-LD or --li-directory`
+
+A templating flag that allows you to define how each directory in the listing will be rendered. Supply a template file. If this flag isn't supplied a default one will be used.
+The html will create `<li>` lines in an unordered list by default.
+
+e.g.
+```bash
+./htmltree.sh --li-directory li_directory_template.html
+./htmltree.sh -LD li_directory_template.html
+```
+
+
+###  3.5. <a name='-Gor--git-ignore'></a>`-G or --git-ignore`
 
 Supplying this flag will look for a .gitignore file and hide files that match the patterns within it.
 
@@ -95,20 +137,19 @@ e.g.
 ```
 
 
-## `-I or --hide-index`   
+###  3.6. <a name='-Ior--hide-index'></a>`-I or --hide-index`   
 
 Exclude the index.html file from being rendered in the output list. If this is being used as a webpage, than by being on the page, you don't really need it to be listed.
 
 
-## `--help`
+
+###  3.7. <a name='--help'></a>`--help`
 
 Display the help for the program.
 
-# Template Examples.
+##  4. <a name='Templating.'></a>Templating.
 
-Below are some examples of the HTML templates you can use to customise your output.
-
-## Variables
+###  4.1. <a name='Variables'></a>Variables
 Within the template files theere are a number of variables available for the listings. Bleow is a list of all those variables:
 
 ```bash
@@ -149,7 +190,7 @@ Only available for the `<li>` template:
 
 You can place these variables within your templates like so:
 
-### Examples
+##  5. <a name='Examples'></a>Examples
 
 Example `template_head.html`
 
@@ -172,25 +213,59 @@ Example `template_foot.html`
 </html>
 ```
 
-Example `template_li.html`
+Example `template_li_file.html`
 
 ```html
 <li class="item"><a href="{{file_path}}">{{file_name}}</a></li>
 ```
 
-Note that quotes need to be escaped to work.
+
+Example `template_li_directory.html`
+
+```html
+<li class="item"><a href="{{file_path}}"> FOLDER: {{file_name}}</a></li>
+```
+
 
 You could then use all of these templates like so:
 
+
 ```bash
-./htmltree.sh -F template_foot.html -H template_head.html -L template_li.html -I -G ./example
+./htmltree.sh -F template_foot.html -H template_head.html -LF template_li_file.html -LD template_li_directory -I -G ./example
 ```
+
+
+##  6. <a name='Exampletemplates'></a>Example templates
+
+There are two supplied templates:
+
+###  6.1. <a name='basictemplate'></a>basic template
+
+This contains a starting point on how to use the templates. Contains a file for each component. Get started by coping this template and customising it.
+
+Usage:
+```bash
+./htmltree.sh -F ./templates/basic/template_foot.html -H ./templates/basic/template_head.html -LF ./templates/basic/template_li_file.html -LD ./templates/basic/template_li_directory -I -G ./example
+```
+
+###  6.2. <a name='githubtemplate'></a>github template
+
+This template is stylised like the github repository file-browser. Contains custom images, dynamic SVGs, File and folder icons as well as more file details.
+
+Usage:
+```bash
+./htmltree.sh -F ./templates/github/template_foot.html -H ./templates/github/template_head.html -LF ./templates/github/template_li_file.html -LD ./templates/github/template_li_directory -I -G ./example
+```
+
+##  7. <a name='AdvancedCIusage.'></a>Advanced CI usage.
+
+Remember, If you are using this project within a CI pipeline, you could generate the template files to contain results of tests, etc... Those templates are then used to generate the HTML index files.
 
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 
-##  6. <a name='Contributing'></a>Contributing
+##  8. <a name='Contributing'></a>Contributing
 
 Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
 
@@ -207,7 +282,7 @@ Don't forget to give the project a star! Thanks again!
 
 
 
-##  7. <a name='License'></a>License
+##  9. <a name='License'></a>License
 
 Distributed under the MIT License.
 
@@ -237,12 +312,12 @@ SOFTWARE.
 
 
 
-##  8. <a name='Contact'></a>Contact
+##  10. <a name='Contact'></a>Contact
 
 Author Link: [https://github.com/IORoot](https://github.com/IORoot)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
-##  9. <a name='Changelog'></a>Changelog
+##  11. <a name='Changelog'></a>Changelog
 
 v1.0.0 - First version.
