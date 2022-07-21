@@ -42,6 +42,8 @@ Create a static HTML rendering of a file structure.
 
 ##  2. <a name='AboutTheProject'></a>About The Project
 
+![https://github.com/IORoot/htmltree/blob/master/templates/github/github_template.png?raw=true](https://github.com/IORoot/htmltree/blob/master/templates/github/github_template.png?raw=true)
+
 If you run CI pipelines, sometimes you have result files you wish to see. 
 You could just download the artifacts and open it up locally, but there's also the functionality to push the results to the 'pages' facility within GitHub and GitLab. 
 This renders any static HTML files you have and essentailly makes a website for you.
@@ -256,6 +258,10 @@ Usage:
 ```bash
 ./htmltree.sh -F ./templates/github/template_foot.html -H ./templates/github/template_head.html -LF ./templates/github/template_li_file.html -LD ./templates/github/template_li_directory -I -G ./example
 ```
+
+Screenshot:
+
+![https://github.com/IORoot/htmltree/blob/master/templates/github/github_template.png?raw=true](https://github.com/IORoot/htmltree/blob/master/templates/github/github_template.png?raw=true)
 
 ##  7. <a name='AdvancedCIusage.'></a>Advanced CI usage.
 
