@@ -102,8 +102,9 @@ substitute_variables()
     HTML=$1
 
     for i in _ {a..z} {A..Z}; do
-        for var in `eval echo "\\${!$i@}"`; do
-            echo $var
+        for VARIABLE in `eval echo "\\${!$i@}"`; do
+            HTML_PARSED=$(echo ${HTML} | sed "s#{{${VARIABLE}}}#${VARIABLE}#g")
+            echo "HTMLPARSED: ${HTML_PARSED}"
         done 
     done
 }
@@ -118,7 +119,7 @@ html_head()
     <head>
     </head>
     <body>
-        <h1>FILE LISTING: ${FOLDER}</h1>
+        <h1>FILE LISTING: {{FOLDER}}</h1>
         <ul>
 "
 
