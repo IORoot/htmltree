@@ -192,6 +192,7 @@ Only available for the `<li>` template:
 - {{file_extension}}         # The extension of the filename.
 ```
 
+Note that any system environment variable can be used. Therefore, things like `{{USER}}`, `{{SHELL}}`, `{{PATH}}`, etc...
 You can place these variables within your templates like so:
 
 ##  5. <a name='Examples'></a>Examples
@@ -320,7 +321,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
-
 
 
 ##  11. <a name='Contact'></a>Contact
