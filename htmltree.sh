@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+# export all variables by default.
+# Used by the perl replacement script in substitute_variables() function
+set -a
 
 printhelp()
 {
@@ -97,48 +100,37 @@ CURRENT_PATH=$(pwd)
 IGNORE=''
 
 
+# ┌────────────────────────────────────┐
+# │                                    │
+# │   Substitute any {{moustaches}}    │
+# │  for variables of the same name.   │
+# │                                    │
+# └────────────────────────────────────┘
 substitute_variables()
 {
-    HTML=$1
-
-    for i in _ {a..z} {A..Z}; do
-        for VARIABLE in `eval echo "\\${!$i@}"`; do
-            HTML_PARSED=$(echo ${HTML} | sed "s#{{${VARIABLE}}}#${VARIABLE}#g")
-            echo "HTMLPARSED: ${HTML_PARSED}"
-        done 
-    done
+    CONTENTS=$(perl -pe 's,\{\{(.*)\}\},$ENV{$1},' <<< $CONTENTS)
 }
+
+
 
 # ┌─────────────────────────────────────┐
 # │           HTML TEMPLATES            │
 # └─────────────────────────────────────┘
 html_head()
 {
-    DEFAULT_HTML_HEAD="
-<html>
-    <head>
-    </head>
-    <body>
-        <h1>FILE LISTING: {{FOLDER}}</h1>
-        <ul>
-"
 
     # If HTML_HEAD (-H) flag is set 
     if [ -z ${HTML_HEAD+x} ]; then 
         printf "${DEFAULT_HTML_HEAD}" > index.html
     else 
 
-    echo
-        CONTENTS=$(eval "cat <<EOF
-$(<${CURRENT_PATH}/${HTML_HEAD})
-EOF" 2> /dev/null)
-
         CONTENTS=$(cat ${CURRENT_PATH}/${HTML_HEAD})
 
         # Replace % with %% so that printf will work.
         CONTENTS=$(echo "${CONTENTS}" | sed "s#%#%%#g")
 
-        substitute_variables $CONTENTS
+        # Substitute any {{moustaches}}
+        substitute_variables
 
         printf "${CONTENTS}\n" > index.html
     fi
