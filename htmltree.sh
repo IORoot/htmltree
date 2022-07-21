@@ -5,9 +5,10 @@ printhelp()
 {
     printf "$0 flags [ PATH ]   
             
-    -H | --head         [ Header Template File ] 
-    -F | --foot         [ Footer Template File ] 
-    -L | --li           [ LI Template File ] 
+    -H  | --head              [ Header Template File ] 
+    -F  | --foot              [ Footer Template File ] 
+    -LF | --li-file           [ LI Template for files ] 
+    -LD | --li-directory      [ LI Template for directories ] 
 
     -G | --git-ignore   Look for a .gitignore file and hide files that match pattern.
     -I | --hide-index   Exclude the index.html file from the output listings.
@@ -65,7 +66,7 @@ while [[ $# -gt 0 ]]; do
             ;;
 
         --help)
-            printf "$USAGE"
+            printhelp
             shift # past argument
             exit 0
             ;;
@@ -87,10 +88,25 @@ done
 # restore positional parameters
 set -- "${POSITIONAL_ARGS[@]}" 
 
+# ┌─────────────────────────────────────┐
+# │             VARIABLES               │
+# └─────────────────────────────────────┘
 
 ABSOLUTE_PATH="$(cd "$(dirname "$TARGET_PATH")"; pwd)/$(basename "$TARGET_PATH")"
 CURRENT_PATH=$(pwd)
 IGNORE=''
+
+
+substitute_variables()
+{
+    HTML=$1
+
+    for i in _ {a..z} {A..Z}; do
+        for var in `eval echo "\\${!$i@}"`; do
+            echo $var
+        done 
+    done
+}
 
 # ┌─────────────────────────────────────┐
 # │           HTML TEMPLATES            │
@@ -105,13 +121,24 @@ html_head()
         <h1>FILE LISTING: ${FOLDER}</h1>
         <ul>
 "
+
     # If HTML_HEAD (-H) flag is set 
     if [ -z ${HTML_HEAD+x} ]; then 
         printf "${DEFAULT_HTML_HEAD}" > index.html
     else 
+
+    echo
         CONTENTS=$(eval "cat <<EOF
 $(<${CURRENT_PATH}/${HTML_HEAD})
 EOF" 2> /dev/null)
+
+        CONTENTS=$(cat ${CURRENT_PATH}/${HTML_HEAD})
+
+        # Replace % with %% so that printf will work.
+        CONTENTS=$(echo "${CONTENTS}" | sed "s#%#%%#g")
+
+        substitute_variables $CONTENTS
+
         printf "${CONTENTS}\n" > index.html
     fi
     
@@ -120,11 +147,11 @@ EOF" 2> /dev/null)
 
 html_li_directory()
 {
-    DEFAULT_HTML_LI="<li class=\"item\"><a href=\"${file_path}\">${file_name}</a></li>\n"
+    DEFAULT_HTML_LI_DIRECTORY="<li class=\"item\"><a href=\"${file_path}\">${file_name}</a></li>\n"
 
     # If HTML_LI (-L) flag is set 
     if [ -z ${HTML_LI_DIRECTORY+x} ]; then 
-        printf "${DEFAULT_HTML_LI}" >> index.html
+        printf "${DEFAULT_HTML_LI_DIRECTORY}" >> index.html
     else 
         CONTENTS=$(eval "cat <<EOF
 $(<${CURRENT_PATH}/${HTML_LI_DIRECTORY})
@@ -138,11 +165,11 @@ EOF" 2> /dev/null)
 
 html_li_file()
 {
-    DEFAULT_HTML_LI="<li class=\"item\"><a href=\"${file_path}\">${file_name}</a></li>\n"
+    DEFAULT_HTML_LI_FILE="<li class=\"item\"><a href=\"${file_path}\">${file_name}</a></li>\n"
 
     # If HTML_LI (-L) flag is set 
     if [ -z ${HTML_LI_FILE+x} ]; then 
-        printf "${DEFAULT_HTML_LI}" >> index.html
+        printf "${DEFAULT_HTML_LI_FILE}" >> index.html
     else 
         CONTENTS=$(eval "cat <<EOF
 $(<${CURRENT_PATH}/${HTML_LI_FILE})
