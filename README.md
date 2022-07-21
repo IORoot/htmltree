@@ -34,10 +34,12 @@ Create a static HTML rendering of a file structure.
 	* 6.1. [basic template](#basictemplate)
 	* 6.2. [github template](#githubtemplate)
 * 7. [Advanced CI usage.](#AdvancedCIusage.)
-* 8. [Contributing](#Contributing)
-* 9. [License](#License)
-* 10. [Contact](#Contact)
-* 11. [Changelog](#Changelog)
+* 8. [Problems to fix](#Problemstofix)
+* 9. [Contributing](#Contributing)
+* 10. [License](#License)
+* 11. [Contact](#Contact)
+* 12. [Changelog](#Changelog)
+
 
 
 ##  2. <a name='AboutTheProject'></a>About The Project
@@ -270,8 +272,11 @@ Remember, If you are using this project within a CI pipeline, you could generate
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
+##  8. <a name='Problemstofix'></a>Problems to fix
 
-##  8. <a name='Contributing'></a>Contributing
+- The .gitignore doesn't work with folders. The patterning only works with files.
+
+##  9. <a name='Contributing'></a>Contributing
 
 Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
 
@@ -288,7 +293,7 @@ Don't forget to give the project a star! Thanks again!
 
 
 
-##  9. <a name='License'></a>License
+##  10. <a name='License'></a>License
 
 Distributed under the MIT License.
 
@@ -318,12 +323,12 @@ SOFTWARE.
 
 
 
-##  10. <a name='Contact'></a>Contact
+##  11. <a name='Contact'></a>Contact
 
 Author Link: [https://github.com/IORoot](https://github.com/IORoot)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
-##  11. <a name='Changelog'></a>Changelog
+##  12. <a name='Changelog'></a>Changelog
 
 v1.0.0 - First version.
