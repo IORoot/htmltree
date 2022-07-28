@@ -3,7 +3,9 @@
         </div>
         <script type="module" >
 
-            import joblist from '/joblist.json' assert {type: 'json'};
+            // import joblist from '/joblist.json' assert {type: 'json'};
+            
+            const target = document.querySelector('.testlist');
 
             joblist.forEach( item => {
                 var newitem = document.createElement("div");
