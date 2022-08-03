@@ -11,9 +11,9 @@
                 var newitem = document.createElement("div");
 
                 var cardHTML = '<div class=" flex flex-col bg-white text-gray-800 border shadow-sm rounded-xl dark:bg-gray-800 dark:border-gray-700 dark:shadow-slate-700/[.7] hover:bg-slate-700 hover:text-white">';
-                    cardHTML += '<div class="p-4 md:p-5">';
+                    cardHTML += '<div class="p-4 md:p-5 overflow-hidden">';
                         cardHTML += '<img class="mb-4" src="https://svg-rewriter.sachinraja.workers.dev/?url=https%3A%2F%2Fcdn.jsdelivr.net%2Fnpm%2F%40mdi%2Fsvg%406.7.96%2Fsvg%2F'+item.icon+'.svg&fill=%23'+item.hex+'&width=40px&height=40px" style="width:40px;"/>';
-                        cardHTML += '<h3 class="text-lg font-bold dark:text-white">'+item.job+'</h3>';
+                        cardHTML += '<h3 class="text-lg font-bold dark:text-white break-all">'+item.job+'</h3>';
                         cardHTML += '<a class="mt-3 inline-flex items-center gap-2 mt-5 text-sm font-medium text-blue-500 hover:text-blue-200" href="'+item.url+'" target="blank">';
                         cardHTML += 'Results';
                         cardHTML += '<svg class="w-2.5 h-auto" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 1L10.6869 7.16086C10.8637 7.35239 10.8637 7.64761 10.6869 7.83914L5 14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
